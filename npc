@@ -1,0 +1,64 @@
+import pygame
+import random
+import math
+
+LEFT = 0
+RIGHT = 1
+UP = 2
+DOWN = 3
+py = 0
+px = 0
+
+class npc:
+    def __init__(self):
+        self.xpos = 100
+        self.ypos = 500
+        self.direction = RIGHT
+    def draw(self,screen):
+        pygame.draw.rect(screen, (255, 155, 200), (self.xpos, self.ypos, 30, 30))
+    def move(self, map, ticker):
+        if ticker % 40 == 0:
+            num = random.randrange(0, 4)
+            if num == 0:
+                self.direction = RIGHT
+            elif num == 1:
+                self.direction = LEFT
+            elif num == 2:
+                self.direction = UP
+            elif num == 3:
+                self.direction = DOWN
+                
+        if self.direction == RIGHT and map[int((self.ypos) / 50)][int( (self.xpos + 20) / 50)] ==2:
+            self.direction = LEFT
+            self.xpos -= 6
+        if self.direction == LEFT and map[int((self.ypos) / 50)][int( (self.xpos - 5) / 50)] ==2:
+            self.direction = RIGHT
+            self.xpos += 6
+        if self.direction == UP and map[int((self.ypos -5) / 50)][int( (self.xpos) / 50)] ==2:
+            self.direction = DOWN
+            self.ypos += 6
+        if self.direction == DOWN and map[int((self.ypos +20) / 50)][int( (self.xpos) / 50)] ==2:
+            self.direction = UP
+            self.ypos -= 6
+            
+                
+        if self.direction == RIGHT:
+            self.xpos += 1
+        elif self.direction == LEFT:
+            self.xpos -= 1
+        elif self.direction == UP:
+            self.ypos += 1
+        elif self.direction == DOWN:
+            self.ypos -= 1
+            
+            
+    def talk(self):
+        num = random.randrange(0, 3)
+        if num == 0:
+            print("hey you, you're finally awake!")
+        elif num == 1:
+            print("Scotland is not a real country, you are an englishman with a dress!")
+        elif num == 2:
+            print("It's a secret to everyone")
+        else:
+            print("I like to wear shorts. Thier comfy and easy to wear.")
